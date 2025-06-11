@@ -1,29 +1,30 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ItensService } from './itens.service';
 import { ItemEntity } from './entities/item.entity';
-import { CreateItemDTO } from './dtos/createItem.dto';
+import { ItemDTO } from './dtos/item.dto';
+import { DeleteResult } from 'typeorm';
 
 @Controller('itens')
 export class ItensController {
   constructor(private readonly itensService: ItensService) {}
   
   @Post()
-  async createItem(@Body() createItemDto: CreateItemDTO): Promise<ItemEntity> {
-    return await this.itensService.createItem(createItemDto);
+  async createItem(@Body() createItemDto: ItemDTO): Promise<ItemEntity> {
+    return this.itensService.createItem(createItemDto);
   }     
 
   @Get()
   async findAllItens(): Promise<ItemEntity[]> {
-    return await this.itensService.findAllItens();
+    return this.itensService.findAllItens();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number): Promise<ItemEntity> {
-    return await this.itensService.findItemById(id);
+  @Patch(':id')
+  async updateItem(@Param('id') id: number, @Body() item: ItemDTO): Promise<ItemEntity> {
+    return this.itensService.updateItem(id, item);
   }
 
-  @Patch()
-  async updateItem(@Body() item: ItemEntity): Promise<ItemEntity> {
-    return await this.itensService.updateItem(item);
+  @Delete(':id')
+  async deleteItem(@Param('id') id: number): Promise<DeleteResult> {
+    return this.itensService.deleteItem(id);
   }
 }

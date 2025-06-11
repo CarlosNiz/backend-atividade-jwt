@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 
-export class CreateItemDTO {
+export class ItemDTO {
     @IsString()
     descricao: string
 
