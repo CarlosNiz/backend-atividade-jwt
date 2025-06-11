@@ -1,19 +1,19 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "itens" })
-export class ItemEntity {
+@Entity({ name: "user" })
+export class UserEntity {
     @PrimaryGeneratedColumn("uuid")
     id: number;
-    
+        
     @Column({ 
         type: "character varying",
-        name: "descricao"
+        name: "nome"
     })
-    descricao: string;
+    nome: string;
 
     @Column({
-        type: "numeric",
-        name: "preco"
+        type: "character varying",
+        name: "senha"
     })
-    preco: number;
+    senha: string;
 }
