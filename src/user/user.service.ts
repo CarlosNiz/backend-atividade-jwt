@@ -54,6 +54,20 @@ export class UserService {
         return usuarioSemSenha;
     }
 
+    async findUserByName(nameUser: string): Promise<UserEntity> {
+        const usuario = await this.userRepository.findOne({
+            where: {
+                nome: nameUser
+            }
+        });
+
+        if(!usuario) {
+            throw new NotFoundException('Usuário não encontrado!');
+        }
+
+        return usuario;
+    }
+
     async deleteUser(idUser: number): Promise<DeleteResult>{
         await this.findUserById(idUser);
 
